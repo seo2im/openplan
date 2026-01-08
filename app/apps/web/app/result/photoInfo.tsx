@@ -36,9 +36,19 @@ const PhotoInfo: React.FC = () => {
             className="relative w-full rounded-2xl overflow-hidden"
             style={{ aspectRatio: photo ? `${photo.width}/${photo.height}` : undefined }}
           >
-            {!photo ? (
+            {(!photo || !loaded) ? (
               <div className="w-full h-56 md:h-112 lg:h-96">
                 <Skeleton width="100%" height="100%" borderRadius={16} />
+                {photo && (
+                  <Image
+                    src={photo.download_url}
+                    alt="Result Image"
+                    fill
+                    sizes="(min-width:1024px) 50vw, 100vw"
+                    className={`object-cover transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+                    onLoad={() => setLoaded(true)}
+                  />
+                )}
               </div>
             ) : (
               <Image
@@ -46,8 +56,8 @@ const PhotoInfo: React.FC = () => {
                 alt="Result Image"
                 fill
                 sizes="(min-width:1024px) 50vw, 100vw"
-                className={`object-cover transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}
-                onLoadingComplete={() => setLoaded(true)}
+                className="object-cover transition-opacity duration-300 opacity-100"
+                // onLoad not needed, already loaded
               />
             )}
           </div>
