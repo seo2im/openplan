@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import React from "react";
+import Image from 'next/image';
+import React from 'react';
 
 type MaskedImageProps = {
   src: string;
@@ -17,17 +17,16 @@ export default function MaskedImage({
   height,
   blur = 21.8,
   className,
-  sizes = "(min-width:1024px) 50vw, 100vw",
+  sizes = '(min-width:1024px) 50vw, 100vw',
 }: MaskedImageProps) {
   const maskStyle: React.CSSProperties = {
-    maskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)",
-    WebkitMaskImage:
-      "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)",
+    maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)',
+    WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)',
   };
 
   return (
     <div
-      className={"relative w-full rounded-2xl overflow-hidden " + (className || "")}
+      className={'relative w-full rounded-2xl overflow-hidden ' + (className || '')}
       style={{ aspectRatio: `${width}/${height}`, ...maskStyle }}
     >
       <Image

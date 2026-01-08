@@ -3,5 +3,13 @@
     {
       "mode": "auto"
     }
-  ]
+  ],
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    // "source.fixAll": true, // 잘못된 타입이므로 주석 처리 또는 삭제
+    // "source.fixAll.eslint": true // 잘못된 타입이므로 주석 처리 또는 삭제
+  },
+  "eslint.validate": ["javascript", "typescript", "typescriptreact"],
+  "prettier.enable": true
 }

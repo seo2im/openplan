@@ -1,4 +1,4 @@
-import { fn, userEvent, within } from "storybook/test";
+import { fn, userEvent, within } from 'storybook/test';
 import { Button } from '@repo/ui/index';
 import type { StoryObj } from '@storybook/react-vite';
 
@@ -49,7 +49,7 @@ export const BtnHoverAndPress: Story = {
     const button = within(canvasElement).getByRole('button');
     await userEvent.hover(button);
     await userEvent.click(button);
-  }
+  },
 };
 export const WidthNumber: Story = {
   args: {

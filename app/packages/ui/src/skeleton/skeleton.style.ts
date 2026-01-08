@@ -1,5 +1,3 @@
-import type { SkeletonSize } from './skeleton.type';
-
 export const skeletonLayerStyle: React.CSSProperties = {
   width: '100%',
   height: '100%',
@@ -20,43 +18,13 @@ export const skeletonKeyframes = `
     }
   }
 `;
-export const skeletonCircleSizesStyle: Record<SkeletonSize, React.CSSProperties> = {
-  sm: {
-    width: '50px',
-    height: '50px',
-    borderRadius: '50%',
-    overflow: 'hidden',
-  },
-  md: {
-    width: '75px',
-    height: '75px',
-    borderRadius: '50%',
-    overflow: 'hidden',
-  },
-  lg: {
-    width: '100px',
-    height: '100px',
-    borderRadius: '50%',
-    overflow: 'hidden',
-  },
-};
-export const skeletonTextSizeStyles: Record<SkeletonSize, React.CSSProperties> = {
-  sm: {
-    width: '100%',
-    height: '12px',
-    borderRadius: '4px',
-    marginBottom: '8px',
-  },
-  md: {
-    width: '100%',
-    height: '16px',
-    borderRadius: '4px',
-    marginBottom: '8px',
-  },
-  lg: {
-    width: '100%',
-    height: '20px',
-    borderRadius: '4px',
-    marginBottom: '8px',
-  },
-};
+export const getSkeletonSquareSizeStyles = (
+  width: number | string,
+  height: number | string,
+  borderRadius: number | string
+): React.CSSProperties => ({
+  width: typeof width === 'number' ? `${width}px` : width,
+  height: typeof height === 'number' ? `${height}px` : height,
+  borderRadius: typeof borderRadius === 'number' ? `${borderRadius}px` : borderRadius,
+  overflow: 'hidden',
+});

@@ -1,0 +1,122 @@
+'use client';
+import React, { useState } from 'react';
+import { usePhotoStore } from '../srcs/store/photo.store';
+import DebounceLink from '../srcs/components/debounceLink';
+import { Skeleton } from '@repo/ui/index';
+import Image from 'next/image';
+import MaskedImage from '../srcs/components/masked-image';
+import Header from '../srcs/components/header';
+
+const PhotoInfo: React.FC = () => {
+  const photo = usePhotoStore((state) => state.photo);
+  const reset = usePhotoStore((state) => state.reset);
+
+  const onClick = () => {
+    usePhotoStore.persist.clearStorage();
+    reset();
+  };
+  const [loaded, setLoaded] = useState(false);
+
+  return (
+    <div className="flex flex-col min-h-screen">
+      <div className="fixed top-0 -left-1/2 -z-10 w-200 md:w-400 lg:w-800">
+        {photo && (
+          <MaskedImage
+            src={photo.download_url}
+            width={photo.width}
+            height={photo.height}
+            blur={40}
+          />
+        )}
+      </div>
+      <Header color="#ffffff" />
+      <div className="flex flex-col lg:flex-row gap-10 lg:flex-1 lg:justify-center lg:items-center">
+        <div className="w-full lg:flex-1 px-5 lg:h-121.25">
+          <div
+            className="relative w-full rounded-2xl overflow-hidden"
+            style={{ aspectRatio: photo ? `${photo.width}/${photo.height}` : undefined }}
+          >
+            {!photo ? (
+              <div className="w-full h-56 md:h-112 lg:h-96">
+                <Skeleton width="100%" height="100%" borderRadius={16} />
+              </div>
+            ) : (
+              <Image
+                src={photo.download_url}
+                alt="Result Image"
+                fill
+                sizes="(min-width:1024px) 50vw, 100vw"
+                className={`object-cover transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+                onLoadingComplete={() => setLoaded(true)}
+              />
+            )}
+          </div>
+        </div>
+        <div className="lg:flex-1 justify-center items-center flex flex-col px-5 gap-3">
+          {!photo ? (
+            <Skeleton width="100%" height="140px" borderRadius={16} />
+          ) : (
+            <div className="bg-white rounded-2xl p-5 flex flex-col md:flex-row gap-4 w-full">
+              <div className="flex-1">
+                <p className="text-[#111111] text-medium text-[15px]/[21px]">id</p>
+                <p className="text-[#111111] text-medium text-[15px]/[21px] opacity-50">
+                  {photo.id}
+                </p>
+              </div>
+              <div className="flex-1">
+                <p className="text-[#111111] text-medium text-[15px]/[21px]">author</p>
+                <p className="text-[#111111] text-medium text-[15px]/[21px] opacity-50">
+                  {photo.author}
+                </p>
+              </div>
+            </div>
+          )}
+
+          {!photo ? (
+            <Skeleton width="100%" height="140px" borderRadius={16} />
+          ) : (
+            <div className="bg-white rounded-2xl p-5 flex flex-col md:flex-row gap-4 w-full">
+              <div className="flex-1">
+                <p className="text-[#111111] text-medium text-[15px]/[21px]">width</p>
+                <p className="text-[#111111] text-medium text-[15px]/[21px] opacity-50">
+                  {photo.width}
+                </p>
+              </div>
+              <div className="flex-1">
+                <p className="text-[#111111] text-medium text-[15px]/[21px]">height</p>
+                <p className="text-[#111111] text-medium text-[15px]/[21px] opacity-50">
+                  {photo.height}
+                </p>
+              </div>
+            </div>
+          )}
+          {!photo ? (
+            <Skeleton width="100%" height="140px" borderRadius={16} />
+          ) : (
+            <div className="bg-white rounded-2xl p-5 flex flex-col gap-4 w-full">
+              <div className="flex-1">
+                <p className="text-[#111111] text-medium text-[15px]/[21px]">url</p>
+                <p className="text-[#111111] text-medium text-[15px]/[21px] opacity-50">
+                  {photo.url}
+                </p>
+              </div>
+              <div className="flex-1">
+                <p className="text-[#111111] text-medium text-[15px]/[21px]">download_url</p>
+                <p className="text-[#111111] text-medium text-[15px]/[21px] opacity-50">
+                  {photo.download_url}
+                </p>
+              </div>
+            </div>
+          )}
+          <div className="w-83.75 lg:w-38.5 max-w-full">
+            <DebounceLink onClick={onClick} href="/" delay={300} width="100%">
+              이전
+            </DebounceLink>
+          </div>
+        </div>
+      </div>
+      <div className="h-15" />
+    </div>
+  );
+};
+export default PhotoInfo;

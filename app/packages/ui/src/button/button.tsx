@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { ReactNode, useCallback } from "react";
+import { ReactNode, useCallback } from 'react';
 
 interface ButtonProps {
   children: ReactNode;
@@ -18,8 +18,8 @@ const colors = {
     default: '#FFFFFF',
     hover: '#FFFFFF',
     press: '#FFFFFF',
-  }
-}
+  },
+};
 
 export const Button: React.FC<ButtonProps> = ({ children, onClick, width = 335 }) => {
   const handleMouseEnter = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
@@ -27,7 +27,7 @@ export const Button: React.FC<ButtonProps> = ({ children, onClick, width = 335 }
     target.style.backgroundColor = colors.bg.hover;
     target.style.color = colors.text.hover;
   }, []);
-  
+
   const handleMouseLeave = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
     const target = e.currentTarget;
     target.style.backgroundColor = colors.bg.default;
