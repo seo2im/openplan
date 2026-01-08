@@ -108,7 +108,7 @@ const PhotoInfo: React.FC = () => {
               </div>
             </div>
           )}
-          <div className="w-83.75 lg:w-38.5 max-w-full">
+          <div className="w-83.75 md:w-38.5 max-w-full">
             <DebounceLink onClick={onClick} href="/" delay={300} width="100%">
               이전
             </DebounceLink>
