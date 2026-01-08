@@ -36,7 +36,7 @@ const PhotoInfo: React.FC = () => {
             className="relative w-full rounded-2xl overflow-hidden"
             style={{ aspectRatio: photo ? `${photo.width}/${photo.height}` : undefined }}
           >
-            {(!photo || !loaded) ? (
+            {!photo || !loaded ? (
               <div className="w-full h-56 md:h-112 lg:h-96 relative">
                 <Skeleton width="100%" height="100%" borderRadius={16} />
                 {photo && (

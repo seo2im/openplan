@@ -2,24 +2,37 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { usePhotoStore } from '../srcs/store/photo.store';
+import { FRESH_WINDOW } from '../srcs/constant/time';
+import { useQuery } from '@tanstack/react-query';
+import { photoQuery } from '../srcs/query/photo.query';
 
 const ResultGate: React.FC = () => {
-  const photo = usePhotoStore((state) => state.photo);
-  const [hydrated, setHydrated] = useState(false);
+  const { refetch, isFetched, isLoading } = useQuery({
+    ...photoQuery(0),
+    enabled: false,
+  });
   const router = useRouter();
+  const photo = usePhotoStore((state) => state.photo);
+  const callTime = usePhotoStore((state) => state.callTime);
+  const setPhoto = usePhotoStore((state) => state.setPhoto);
+  const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => setHydrated(true), []);
-
   useEffect(() => {
     if (!hydrated) return;
-
     if (!photo) {
       setTimeout(() => {
         router.replace('/');
       }, 1000);
       return;
     }
-  }, [hydrated, photo, router]);
+    /** data fresh */
+    if (callTime && Date.now() - callTime >= FRESH_WINDOW && !isLoading && !isFetched) {
+      refetch().then(({ data: newPhoto }) => {
+        setPhoto(newPhoto);
+      });
+    }
+  }, [hydrated, photo, router, refetch, setPhoto, callTime, isLoading, isFetched]);
 
   return null;
 };

@@ -6,13 +6,15 @@ type PhotoState = {
   photo: PicsumData | undefined;
   setPhoto: (photo: PicsumData | undefined) => void;
   reset: () => void;
+  callTime: number | undefined;
 };
 export const usePhotoStore = create(
   persist<PhotoState>(
     (set) => ({
       photo: undefined,
-      setPhoto: (photo) => set({ photo }),
-      reset: () => set({ photo: undefined }),
+      callTime: undefined,
+      setPhoto: (photo) => set({ photo, callTime: Date.now() }),
+      reset: () => set({ photo: undefined, callTime: undefined }),
     }),
     {
       name: 'photo-storage',
