@@ -1,5 +1,5 @@
 import { fn, userEvent, within } from "storybook/test";
-import { Button } from '@repo/ui/button';
+import { Button } from '@repo/ui/index';
 import type { StoryObj } from '@storybook/react-vite';
 
 export const ActionsData = {

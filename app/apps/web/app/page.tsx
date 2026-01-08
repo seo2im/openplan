@@ -1,6 +1,6 @@
 'use client';
 import React, {useCallback, useEffect, useRef} from 'react';
-import { Button } from '@repo/ui/button';
+import { Button } from '@repo/ui/index';
 import Header from './srcs/components/header';
 import { useRouter } from 'next/navigation';
 import {usePhotoStore} from './srcs/store/photo.store';
