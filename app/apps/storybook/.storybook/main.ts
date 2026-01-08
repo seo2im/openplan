@@ -22,6 +22,13 @@ const config: StorybookConfig = {
     getAbsolutePath('@storybook/addon-a11y'),
     getAbsolutePath('@storybook/addon-docs')
   ],
+  typescript: {
+    reactDocgen: 'react-docgen-typescript',
+    reactDocgenTypescriptOptions: {
+      // Point docgen at the UI package tsconfig for accurate types
+      tsconfigPath: '../../packages/ui/tsconfig.json'
+    }
+  },
   "framework": getAbsolutePath('@storybook/react-vite')
 };
 export default config;
