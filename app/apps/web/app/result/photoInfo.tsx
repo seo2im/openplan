@@ -37,7 +37,7 @@ const PhotoInfo: React.FC = () => {
             style={{ aspectRatio: photo ? `${photo.width}/${photo.height}` : undefined }}
           >
             {(!photo || !loaded) ? (
-              <div className="w-full h-56 md:h-112 lg:h-96">
+              <div className="w-full h-56 md:h-112 lg:h-96 relative">
                 <Skeleton width="100%" height="100%" borderRadius={16} />
                 {photo && (
                   <Image
@@ -47,6 +47,7 @@ const PhotoInfo: React.FC = () => {
                     sizes="(min-width:1024px) 50vw, 100vw"
                     className={`object-cover transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}
                     onLoad={() => setLoaded(true)}
+                    loading="eager"
                   />
                 )}
               </div>
@@ -57,7 +58,7 @@ const PhotoInfo: React.FC = () => {
                 fill
                 sizes="(min-width:1024px) 50vw, 100vw"
                 className="object-cover transition-opacity duration-300 opacity-100"
-                // onLoad not needed, already loaded
+                loading="eager"
               />
             )}
           </div>
