@@ -1,13 +1,8 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@import "tailwindcss";
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --background: #FAFAFA;
+  --foreground: #1A1A1A;
 }
 
 html,
@@ -19,12 +14,6 @@ body {
 body {
   color: var(--foreground);
   background: var(--background);
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
 }
 
 a {
