@@ -1,6 +1,7 @@
 'use client';
 
-import { ReactNode, useCallback } from 'react';
+import type { ReactNode } from 'react';
+import { useCallback } from 'react';
 
 interface ButtonProps {
   children: ReactNode;
