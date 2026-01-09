@@ -59,3 +59,7 @@ pnpm 재설치 필요
 ## pwd = ./app
 pnpm install
 ```
+
+### Build 오류 발생 시(RUN pnpm install 오류)
+
+node_modules 삭제 후 재시도
