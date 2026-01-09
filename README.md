@@ -1,5 +1,7 @@
 # OPENPLAN
 
+사진 조회 UI 과제
+
 Web Example: https://openplan-ashy.vercel.app/
 
 ## PREPARE
@@ -45,6 +47,7 @@ http://localhost:6006 - storybook
 docker내 설치파일(node_modules 등) 접근 권한 오류
 
 ```bash
+#pwd = ./
 chmod -R 777 app
 ```
 
