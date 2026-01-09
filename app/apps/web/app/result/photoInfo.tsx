@@ -9,9 +9,10 @@ import Background from '../srcs/components/background';
 import { PicsumData } from '../srcs/dto/dto.photo';
 
 type PhotoInfoProps = {
+  enabled: boolean;
   uiPhotoData?: PicsumData;
 };
-const PhotoInfo: React.FC<PhotoInfoProps> = ({ uiPhotoData }) => {
+const PhotoInfo: React.FC<PhotoInfoProps> = ({ enabled, uiPhotoData }) => {
   const reset = usePhotoStore((state) => state.reset);
 
   const onClick = () => {
@@ -21,6 +22,7 @@ const PhotoInfo: React.FC<PhotoInfoProps> = ({ uiPhotoData }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
 
+  if (!enabled) return <></>;
   return (
     <div className="relative">
       <Background photo={uiPhotoData} contentRef={contentRef} loaded={imageLoaded} />
@@ -106,15 +108,21 @@ const PhotoInfo: React.FC<PhotoInfoProps> = ({ uiPhotoData }) => {
               <div className="bg-white rounded-2xl p-5 flex flex-col gap-4 w-full">
                 <div className="flex-1">
                   <p className="text-[#111111] text-medium text-[15px]/[21px]">url</p>
-                  <p className="text-[#111111] text-medium text-[15px]/[21px] opacity-50">
+                  <a
+                    href={uiPhotoData.url}
+                    className="text-[#111111] text-medium text-[15px]/[21px] opacity-50"
+                  >
                     {uiPhotoData.url}
-                  </p>
+                  </a>
                 </div>
                 <div className="flex-1">
                   <p className="text-[#111111] text-medium text-[15px]/[21px]">download_url</p>
-                  <p className="text-[#111111] text-medium text-[15px]/[21px] opacity-50">
+                  <a
+                    href={uiPhotoData.download_url}
+                    className="text-[#111111] text-medium text-[15px]/[21px] opacity-50"
+                  >
                     {uiPhotoData.download_url}
-                  </p>
+                  </a>
                 </div>
               </div>
             )}

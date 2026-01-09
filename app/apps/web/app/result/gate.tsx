@@ -8,9 +8,10 @@ import { photoQuery } from '../srcs/query/photo.query';
 import { PicsumData } from '../srcs/dto/dto.photo';
 
 type ResultGateProps = {
+  onPass: () => void;
   setUiPhotoData: (data: PicsumData) => void;
 };
-const ResultGate: React.FC<ResultGateProps> = ({ setUiPhotoData }) => {
+const ResultGate: React.FC<ResultGateProps> = ({ onPass, setUiPhotoData }) => {
   const { refetch, isFetched, isLoading } = useQuery({
     ...photoQuery(0),
     enabled: false,
@@ -37,7 +38,19 @@ const ResultGate: React.FC<ResultGateProps> = ({ setUiPhotoData }) => {
         setUiPhotoData(newPhoto);
       });
     }
-  }, [hydrated, photo, router, refetch, setPhoto, callTime, isLoading, isFetched, setUiPhotoData]);
+    onPass();
+  }, [
+    hydrated,
+    photo,
+    router,
+    refetch,
+    setPhoto,
+    callTime,
+    isLoading,
+    isFetched,
+    setUiPhotoData,
+    onPass,
+  ]);
 
   return null;
 };

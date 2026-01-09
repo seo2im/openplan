@@ -6,6 +6,7 @@ import { usePhotoStore } from '../srcs/store/photo.store';
 import { PicsumData } from '../srcs/dto/dto.photo';
 
 const Result: React.FC = () => {
+  const [pass, onPass] = useState(false);
   const photo = usePhotoStore((state) => state.photo);
   const [uiPhotoData, setUiPhotoData] = useState<PicsumData | undefined>(undefined);
 
@@ -17,8 +18,8 @@ const Result: React.FC = () => {
 
   return (
     <>
-      <ResultGate setUiPhotoData={setUiPhotoData} />
-      <PhotoInfo uiPhotoData={uiPhotoData} />
+      <ResultGate onPass={() => onPass(true)} setUiPhotoData={setUiPhotoData} />
+      <PhotoInfo enabled={pass} uiPhotoData={uiPhotoData} />
     </>
   );
 };
