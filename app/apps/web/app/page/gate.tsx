@@ -18,6 +18,7 @@ const PageGate: React.FC<PageGateProps> = ({ onPass }) => {
     if (!hydrated) return;
     if (photo) {
       router.replace('/result');
+      return;
     }
     onPass();
   }, [hydrated, photo, router, onPass]);
