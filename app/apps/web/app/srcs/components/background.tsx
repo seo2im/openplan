@@ -74,14 +74,28 @@ const Background: React.FC<BackgroundProps> = ({
           style={{ display: 'block' }}
         >
           <defs>
-            <linearGradient id={`g-${id}`} x1="0" y1="0" x2="0" y2={imgHeight} gradientUnits="userSpaceOnUse">
+            <linearGradient
+              id={`g-${id}`}
+              x1="0"
+              y1="0"
+              x2="0"
+              y2={imgHeight}
+              gradientUnits="userSpaceOnUse"
+            >
               <stop offset="0%" stopColor="white" stopOpacity="1" />
               <stop offset="100%" stopColor="white" stopOpacity="0" />
             </linearGradient>
 
             <mask id={`m-${id}`}>
               <rect x="0" y="0" width={imgWidth} height={imgHeight} fill={`url(#g-${id})`} />
-              <image href={noiseSrc} x="0" y="0" width={imgWidth} height={imgHeight} opacity="0.25" />
+              <image
+                href={noiseSrc}
+                x="0"
+                y="0"
+                width={imgWidth}
+                height={imgHeight}
+                opacity="0.25"
+              />
             </mask>
 
             <filter id={`b-${id}`}>
