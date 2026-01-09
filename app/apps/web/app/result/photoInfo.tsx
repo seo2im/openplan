@@ -34,28 +34,29 @@ const PhotoInfo: React.FC<PhotoInfoProps> = ({ uiPhotoData }) => {
                 aspectRatio: uiPhotoData ? `${uiPhotoData.width}/${uiPhotoData.height}` : undefined,
               }}
             >
-              {!uiPhotoData || !imageLoaded ? (
+              {!imageLoaded || !uiPhotoData ? (
                 <div className="w-full h-56 md:h-112 lg:h-96 relative">
                   <Skeleton width="100%" height="100%" borderRadius={16} />
-                  {uiPhotoData && (
-                    <Image
-                      src={uiPhotoData.download_url}
-                      alt="Result Image"
-                      fill
-                      sizes="(min-width:1024px) 50vw, 100vw"
-                      className={`object-cover transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
-                      onLoad={() => setImageLoaded(true)}
-                      loading="eager"
-                    />
-                  )}
                 </div>
-              ) : (
+              ) : null}
+              {!imageLoaded && uiPhotoData && (
                 <Image
                   src={uiPhotoData.download_url}
                   alt="Result Image"
                   fill
                   sizes="(min-width:1024px) 50vw, 100vw"
-                  className="object-cover transition-opacity duration-300 opacity-100"
+                  className="hidden"
+                  onLoad={() => setImageLoaded(true)}
+                  loading="eager"
+                />
+              )}
+              {imageLoaded && uiPhotoData && (
+                <Image
+                  src={uiPhotoData.download_url}
+                  alt="Result Image"
+                  fill
+                  sizes="(min-width:1024px) 50vw, 100vw"
+                  className="object-cover"
                   loading="eager"
                 />
               )}
