@@ -15,7 +15,6 @@ const Main: React.FC<MainProps> = ({ enabled, fetch }) => {
   const [loading, setLoading] = useState(false);
   const setPhoto = usePhotoStore((state) => state.setPhoto);
   const onNext = useCallback(async () => {
-    setLoading(true);
     const { data } = await fetch();
     setPhoto(data);
   }, [fetch, setPhoto]);
@@ -30,7 +29,7 @@ const Main: React.FC<MainProps> = ({ enabled, fetch }) => {
         </p>
       </div>
       <div className="h-32 flex flex-col justify-center items-center">
-        <DebounceLink onClick={onNext} href="/result" delay={300}>
+        <DebounceLink setLoading={setLoading} onClick={onNext} href="/result" delay={300}>
           다음
         </DebounceLink>
       </div>

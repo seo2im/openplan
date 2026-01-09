@@ -4,6 +4,7 @@ import { Button } from '@repo/ui/index';
 import { useRouter } from 'next/navigation';
 
 type DebounceButtonProps = {
+  setLoading?: (loading: boolean) => void;
   onClick: () => Promise<void> | void;
   href?: string;
   delay?: number;
@@ -11,6 +12,7 @@ type DebounceButtonProps = {
   width?: string | number;
 };
 const DebounceLink: React.FC<DebounceButtonProps> = ({
+  setLoading,
   onClick,
   delay = 300,
   children,
@@ -21,6 +23,7 @@ const DebounceLink: React.FC<DebounceButtonProps> = ({
   const timeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleClick = () => {
+    setLoading?.(true);
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }

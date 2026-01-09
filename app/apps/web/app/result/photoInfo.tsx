@@ -2,7 +2,7 @@
 import React, { useState, useRef } from 'react';
 import { usePhotoStore } from '../srcs/store/photo.store';
 import DebounceLink from '../srcs/components/debounceLink';
-import { Skeleton } from '@repo/ui/index';
+import { Skeleton, Spinner } from '@repo/ui/index';
 import Image from 'next/image';
 import Header from '../srcs/components/header';
 import Background from '../srcs/components/background';
@@ -12,15 +12,15 @@ const PhotoInfo: React.FC = () => {
   const reset = usePhotoStore((state) => state.reset);
 
   const onClick = () => {
-    usePhotoStore.persist.clearStorage();
     reset();
   };
-  const [loaded, setLoaded] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
 
   return (
     <div className="relative">
-      <Background photo={photo} contentRef={contentRef} loaded={loaded} />
+      <Background photo={photo} contentRef={contentRef} loaded={imageLoaded} />
       <div ref={contentRef} className="flex flex-col min-h-screen">
         <Header color="#ffffff" />
         <div className="flex flex-col lg:flex-row gap-10 lg:flex-1 lg:justify-center lg:items-center">
@@ -29,7 +29,7 @@ const PhotoInfo: React.FC = () => {
               className="relative w-full rounded-2xl overflow-hidden"
               style={{ aspectRatio: photo ? `${photo.width}/${photo.height}` : undefined }}
             >
-              {!photo || !loaded ? (
+              {!photo || !imageLoaded ? (
                 <div className="w-full h-56 md:h-112 lg:h-96 relative">
                   <Skeleton width="100%" height="100%" borderRadius={16} />
                   {photo && (
@@ -38,8 +38,8 @@ const PhotoInfo: React.FC = () => {
                       alt="Result Image"
                       fill
                       sizes="(min-width:1024px) 50vw, 100vw"
-                      className={`object-cover transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}
-                      onLoad={() => setLoaded(true)}
+                      className={`object-cover transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+                      onLoad={() => setImageLoaded(true)}
                       loading="eager"
                     />
                   )}
@@ -113,7 +113,13 @@ const PhotoInfo: React.FC = () => {
               </div>
             )}
             <div className="w-83.75 md:w-38.5 max-w-full">
-              <DebounceLink onClick={onClick} href="/" delay={300} width="100%">
+              <DebounceLink
+                setLoading={setLoading}
+                onClick={onClick}
+                href="/"
+                delay={300}
+                width="100%"
+              >
                 이전
               </DebounceLink>
             </div>
@@ -121,6 +127,11 @@ const PhotoInfo: React.FC = () => {
         </div>
         <div className="h-15" />
       </div>
+      {loading && (
+        <div className="fixed top-0 left-0 w-screen h-screen opacity-30 bg-black flex justify-center items-center z-10">
+          <Spinner size="lg" color="white" />
+        </div>
+      )}
     </div>
   );
 };
