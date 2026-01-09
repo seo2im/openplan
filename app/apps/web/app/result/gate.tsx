@@ -5,8 +5,12 @@ import { usePhotoStore } from '../srcs/store/photo.store';
 import { FRESH_WINDOW } from '../srcs/constant/time';
 import { useQuery } from '@tanstack/react-query';
 import { photoQuery } from '../srcs/query/photo.query';
+import { PicsumData } from '../srcs/dto/dto.photo';
 
-const ResultGate: React.FC = () => {
+type ResultGateProps = {
+  setUiPhotoData: (data: PicsumData) => void;
+};
+const ResultGate: React.FC<ResultGateProps> = ({ setUiPhotoData }) => {
   const { refetch, isFetched, isLoading } = useQuery({
     ...photoQuery(0),
     enabled: false,
@@ -30,9 +34,10 @@ const ResultGate: React.FC = () => {
     if (callTime && Date.now() - callTime >= FRESH_WINDOW && !isLoading && !isFetched) {
       refetch().then(({ data: newPhoto }) => {
         setPhoto(newPhoto);
+        setUiPhotoData(newPhoto);
       });
     }
-  }, [hydrated, photo, router, refetch, setPhoto, callTime, isLoading, isFetched]);
+  }, [hydrated, photo, router, refetch, setPhoto, callTime, isLoading, isFetched, setUiPhotoData]);
 
   return null;
 };

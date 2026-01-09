@@ -6,9 +6,12 @@ import { Skeleton, Spinner } from '@repo/ui/index';
 import Image from 'next/image';
 import Header from '../srcs/components/header';
 import Background from '../srcs/components/background';
+import { PicsumData } from '../srcs/dto/dto.photo';
 
-const PhotoInfo: React.FC = () => {
-  const photo = usePhotoStore((state) => state.photo);
+type PhotoInfoProps = {
+  uiPhotoData?: PicsumData;
+};
+const PhotoInfo: React.FC<PhotoInfoProps> = ({ uiPhotoData }) => {
   const reset = usePhotoStore((state) => state.reset);
 
   const onClick = () => {
@@ -20,21 +23,23 @@ const PhotoInfo: React.FC = () => {
 
   return (
     <div className="relative">
-      <Background photo={photo} contentRef={contentRef} loaded={imageLoaded} />
+      <Background photo={uiPhotoData} contentRef={contentRef} loaded={imageLoaded} />
       <div ref={contentRef} className="flex flex-col min-h-screen">
         <Header color="#ffffff" />
         <div className="flex flex-col lg:flex-row gap-10 lg:flex-1 lg:justify-center lg:items-center">
           <div className="w-full lg:flex-1 px-5 lg:h-121.25">
             <div
               className="relative w-full rounded-2xl overflow-hidden"
-              style={{ aspectRatio: photo ? `${photo.width}/${photo.height}` : undefined }}
+              style={{
+                aspectRatio: uiPhotoData ? `${uiPhotoData.width}/${uiPhotoData.height}` : undefined,
+              }}
             >
-              {!photo || !imageLoaded ? (
+              {!uiPhotoData || !imageLoaded ? (
                 <div className="w-full h-56 md:h-112 lg:h-96 relative">
                   <Skeleton width="100%" height="100%" borderRadius={16} />
-                  {photo && (
+                  {uiPhotoData && (
                     <Image
-                      src={photo.download_url}
+                      src={uiPhotoData.download_url}
                       alt="Result Image"
                       fill
                       sizes="(min-width:1024px) 50vw, 100vw"
@@ -46,7 +51,7 @@ const PhotoInfo: React.FC = () => {
                 </div>
               ) : (
                 <Image
-                  src={photo.download_url}
+                  src={uiPhotoData.download_url}
                   alt="Result Image"
                   fill
                   sizes="(min-width:1024px) 50vw, 100vw"
@@ -57,57 +62,57 @@ const PhotoInfo: React.FC = () => {
             </div>
           </div>
           <div className="lg:flex-1 justify-center items-center flex flex-col px-5 gap-3">
-            {!photo ? (
+            {!uiPhotoData ? (
               <Skeleton width="100%" height="140px" borderRadius={16} />
             ) : (
               <div className="bg-white rounded-2xl p-5 flex flex-col md:flex-row gap-4 w-full">
                 <div className="flex-1">
                   <p className="text-[#111111] text-medium text-[15px]/[21px]">id</p>
                   <p className="text-[#111111] text-medium text-[15px]/[21px] opacity-50">
-                    {photo.id}
+                    {uiPhotoData.id}
                   </p>
                 </div>
                 <div className="flex-1">
                   <p className="text-[#111111] text-medium text-[15px]/[21px]">author</p>
                   <p className="text-[#111111] text-medium text-[15px]/[21px] opacity-50">
-                    {photo.author}
+                    {uiPhotoData.author}
                   </p>
                 </div>
               </div>
             )}
 
-            {!photo ? (
+            {!uiPhotoData ? (
               <Skeleton width="100%" height="140px" borderRadius={16} />
             ) : (
               <div className="bg-white rounded-2xl p-5 flex flex-col md:flex-row gap-4 w-full">
                 <div className="flex-1">
                   <p className="text-[#111111] text-medium text-[15px]/[21px]">width</p>
                   <p className="text-[#111111] text-medium text-[15px]/[21px] opacity-50">
-                    {photo.width}
+                    {uiPhotoData.width}
                   </p>
                 </div>
                 <div className="flex-1">
                   <p className="text-[#111111] text-medium text-[15px]/[21px]">height</p>
                   <p className="text-[#111111] text-medium text-[15px]/[21px] opacity-50">
-                    {photo.height}
+                    {uiPhotoData.height}
                   </p>
                 </div>
               </div>
             )}
-            {!photo ? (
+            {!uiPhotoData ? (
               <Skeleton width="100%" height="140px" borderRadius={16} />
             ) : (
               <div className="bg-white rounded-2xl p-5 flex flex-col gap-4 w-full">
                 <div className="flex-1">
                   <p className="text-[#111111] text-medium text-[15px]/[21px]">url</p>
                   <p className="text-[#111111] text-medium text-[15px]/[21px] opacity-50">
-                    {photo.url}
+                    {uiPhotoData.url}
                   </p>
                 </div>
                 <div className="flex-1">
                   <p className="text-[#111111] text-medium text-[15px]/[21px]">download_url</p>
                   <p className="text-[#111111] text-medium text-[15px]/[21px] opacity-50">
-                    {photo.download_url}
+                    {uiPhotoData.download_url}
                   </p>
                 </div>
               </div>
